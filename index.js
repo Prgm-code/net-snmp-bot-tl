@@ -4,15 +4,14 @@ const trapProcessing = require ('./trapProcessing')
 const bot = new Telegraf('5687778700:AAH0gQjZsUjXFD60L8aI3UT8Kew_gsv2Ajg')
 
 // settings
-let upTime = 0;
 let trapServStatus = false; 
 let showTrap = false // by defect the traps are not showed
-let showHeartbeat = false; // by defect heartbeat is off 
+let showHeartbeat = false; // by defect heartbeat is off
+ 
 
 let sendMessage = function(text,ctx) {
     try {
-        let buffer = [];
-        
+                
         bot.telegram.sendMessage(ctx.chat.id ,text)
     } 
     catch(e) 
@@ -43,7 +42,7 @@ let sendMessage = function(text,ctx) {
         } else {
             console.log('---Recived SNMP Trap---')
             //console.log (JSON.stringify(notification, null, 2));
-            let trapResult = trapProcessing(notification);
+            let trapResult = trapProcessing(notification,showTrap,showHeartbeat);
             if (trapResult) sendMessage(trapResult,ctx);        
         }
 
@@ -53,7 +52,6 @@ let sendMessage = function(text,ctx) {
 
    
 }
-
 
 
 bot.start((ctx)=>{
@@ -75,35 +73,28 @@ bot.command(['alarmas','Alarmas'],  (ctx) =>{
         snmpTrap(ctx);
     }
 });
-
-/* function trapProcessing (notification,ctx) {
-    let agentAddr = notification.pdu.agentAddr;
-    let oid = notification.pdu.varbinds[0].oid;
-    let value =notification.pdu.varbinds[0].value;    
-    let textAlarm = oidCode.oidFunction(oid);
-   if (textAlarm !== 'Beacon...'){
+bot.command(['showhb','SHOWHB'],  (ctx) =>{
+    showHeartbeat = true;
+    ctx.reply('Show heartbeat: ON');
     
-    if (textAlarm) {
-        console.log(`OID recived: ${textAlarm} from ${agentAddr}`);
-        sendMessage(`OID recived: ${textAlarm} from ${agentAddr}`,ctx);
-    }else{
-        console.log(`Unknown OID recived: ${oid} from ${agentAddr}`);
-        sendMessage(`Unknown OID recived: ${oid} from ${agentAddr}`,ctx);
-
-    }
-
-   } else {
-    console.log(textAlarm);
-    upTime = 5*value;
-    console.log(`Uptime: ${upTime} Min.`);
-   }
+});
+bot.command(['noshowhb','NOSHOWHB'],  (ctx) =>{
+    showHeartbeat = false;
+    ctx.reply('Show heartbeat: OFF');
 
     
-    console.log(`Value recived: ${value}`);
-                   
+});
+bot.command(['showtrap','SHOWTRAP'],  (ctx) =>{
+    
+    showTrap = true;   
+    ctx.reply('Show Trap Recived: ON')
+});
+bot.command(['noshowtrap','NOSHOWTRAP'],  (ctx) =>{
+    
+    showTrap = false;   
+    ctx.reply('Show Trap Recived: OFF')
+});
 
-} */
  
-
 console.log('Snmp Telegram Bot: STARTED');
 bot.launch()
