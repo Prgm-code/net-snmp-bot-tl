@@ -4,7 +4,7 @@ const oidCode = require('./oidCode')
 
 
 
-const bot = new Telegraf('5687778700:AAH0gQjZsUjXFD60L8aI3UT8Kew_gsv2Ajg')
+const bot = new Telegraf(ENV_TELEGRAM_BOT)
 let upTime = 0;
 let trapServStatus = false; 
 let showTrap = false // by defect the traps are not showed
