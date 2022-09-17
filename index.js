@@ -1,10 +1,9 @@
 const snmp = require('net-snmp');
 const { Telegraf } = require('telegraf')
-const oidCode = require('./oidCode')
-
-
-
+const trapProcessing = require ('./trapProcessing')
 const bot = new Telegraf('5687778700:AAH0gQjZsUjXFD60L8aI3UT8Kew_gsv2Ajg')
+
+// settings
 let upTime = 0;
 let trapServStatus = false; 
 let showTrap = false // by defect the traps are not showed
@@ -22,7 +21,6 @@ let sendMessage = function(text,ctx) {
     }
 };
 
-
  function snmpTrap (ctx) {
     var options = {
         port: 162,
@@ -30,7 +28,7 @@ let sendMessage = function(text,ctx) {
         includeAuthentication: false,
         accessControlModelType: snmp.AccessControlModelType.None,
         engineID: "8000B98380XXXXXXXXXXXXXXXXXXXXXXXX", // where the X's are random hex digits
-        address: null,
+        address: null, // null - recive on all eth ports 
         transport: "udp4"
     };
 
@@ -45,7 +43,8 @@ let sendMessage = function(text,ctx) {
         } else {
             console.log('---Recived SNMP Trap---')
             //console.log (JSON.stringify(notification, null, 2));
-            trapProcessing(notification,ctx);
+            let trapResult = trapProcessing(notification);
+            if (trapResult) sendMessage(trapResult,ctx);        
         }
 
     };
@@ -77,7 +76,7 @@ bot.command(['alarmas','Alarmas'],  (ctx) =>{
     }
 });
 
-function trapProcessing (notification,ctx) {
+/* function trapProcessing (notification,ctx) {
     let agentAddr = notification.pdu.agentAddr;
     let oid = notification.pdu.varbinds[0].oid;
     let value =notification.pdu.varbinds[0].value;    
@@ -103,7 +102,7 @@ function trapProcessing (notification,ctx) {
     console.log(`Value recived: ${value}`);
                    
 
-}
+} */
  
 
 console.log('Snmp Telegram Bot: STARTED');
