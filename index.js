@@ -42,8 +42,9 @@ let sendMessage = function(text,ctx) {
         } else {
             console.log('---Recived SNMP Trap---')
             //console.log (JSON.stringify(notification, null, 2));
-            let trapResult = trapProcessing(notification,showTrap,showHeartbeat);
-            if (trapResult) sendMessage(trapResult,ctx);        
+            let trapResult = trapProcessing(notification,showHeartbeat);
+            if (trapResult) sendMessage(trapResult,ctx); 
+            if (showTrap) sendMessage(JSON.stringify(notification, null, 2),ctx) ;      
         }
 
     };
