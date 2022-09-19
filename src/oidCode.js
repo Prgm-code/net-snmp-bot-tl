@@ -79,7 +79,7 @@ const oidFunction = function (oid){
     case '1.3.6.1.4.1.26061.10.8.13' : return 'Beacon...';
 
     // si no esta definida devuelve la misma
-   // default: return oid ;
+   default: return oid ;
     }
 } 
 exports.oidFunction = oidFunction;

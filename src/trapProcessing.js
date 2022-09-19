@@ -4,13 +4,16 @@ let alarmValue = "";
 let upTime = 0;
 
 
-function trapProcessing (notification , showHeartbeat) {
+ function trapProcessing (notification , showHeartbeat) {
     let agentAddr = notification.pdu.agentAddr;
     let oid = notification.pdu.varbinds[0].oid;
     let value =notification.pdu.varbinds[0].value;    
     let textAlarm = oidCode.oidFunction(oid);
-    let timeDuration = alarmLogger(textAlarm,value);
-    
+    let timeDuration = alarmLogger(textAlarm, value, oid);
+ 
+
+
+
    if (value == 1 ){
     alarmValue = '---Start Alarm--'
    }else{
@@ -30,7 +33,7 @@ function trapProcessing (notification , showHeartbeat) {
         console.log(`Value recived: ${value}`);
            
     
-    if (textAlarm) {
+    if (textAlarm !== oid ) {
         console.log(`OID recived: ${textAlarm}//${alarmValue}from ${agentAddr}`);
         return (`OID recived: ${textAlarm}//${alarmValue} from ${agentAddr}`);
     }else{
