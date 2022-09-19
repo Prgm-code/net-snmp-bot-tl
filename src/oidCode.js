@@ -75,6 +75,7 @@ const oidFunction = function (oid){
 
     // OID alarmas PDA
     case '1.3.6.1.4.1.26061.10.8.10.2': return 'PDA: Low Voltage Disconnect'
+    case '1.3.6.1.4.1.26061.10.8.10.1': return 'Circuit Breacker Batteries (3,4,5)'
 
     case '1.3.6.1.4.1.26061.10.8.13' : return 'Beacon...';
 
