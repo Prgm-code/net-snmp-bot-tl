@@ -7,7 +7,7 @@ let i = 0;
 let alarmLogger = function (textAlarm , value, oid) {
     try {
         let date = new Date().getTime();
-         fs.writeFile(`./json/${oid}.json`,`{"alarm":"${textAlarm}","time":"${date}" }`, function(err){
+         fs.appendFile(`./json/${oid}.json`,`{"alarm":"${textAlarm}","time":"${date}" }`, function(err){
             if (err) throw err;
             console.log('Json creado o actualizado');
         });
