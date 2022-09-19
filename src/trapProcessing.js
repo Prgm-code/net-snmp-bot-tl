@@ -1,4 +1,5 @@
 const oidCode = require('./oidCode')
+const alarmLogger = require('./alarmLogger');
 let alarmValue = "";
 let upTime = 0;
 
@@ -8,11 +9,12 @@ function trapProcessing (notification , showHeartbeat) {
     let oid = notification.pdu.varbinds[0].oid;
     let value =notification.pdu.varbinds[0].value;    
     let textAlarm = oidCode.oidFunction(oid);
+    let timeDuration = alarmLogger(textAlarm,value);
     
    if (value == 1 ){
     alarmValue = '---Start Alarm--'
    }else{
-    alarmValue = '--Cancel Alarm --- '
+    alarmValue = `--Cancel Alarm --- ${timeDuration}`
    }
     
     if(textAlarm == 'Beacon...') {
