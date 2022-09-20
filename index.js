@@ -1,8 +1,10 @@
 const snmp = require('net-snmp');
 const { Telegraf } = require('telegraf')
+require('dotenv').config()
 
-const trapProcessing = require ('./trapProcessing')
-const bot = new Telegraf(ENV_TELEGRAM_BOT)
+
+const trapProcessing = require ('./src/trapProcessing')
+const bot = new Telegraf(process.env.ENV_TELEGRAM_BOT);
 
 // settings
 
@@ -11,14 +13,14 @@ let showTrap = false // by defect the traps are not showed
 let showHeartbeat = false; // by defect heartbeat is off
  
 
-let sendMessage = function(text,ctx) {
+let sendMessage = async function(text,ctx) {
     try {
                 
-        bot.telegram.sendMessage(ctx.chat.id ,text)
+        await bot.telegram.sendMessage(ctx.chat.id ,text)
     } 
     catch(e) 
     {
-        console.error(e);
+        console.log(e);
     }
 };
 

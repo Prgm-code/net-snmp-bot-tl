@@ -3,10 +3,16 @@
   "dependencies": {
   
     
+  "dotenv": "^16.0.2",
+  
+    
   "net-snmp": "^3.8.3",
   
     
-  "telegraf": "^4.9.2"
+  "telegraf": "^4.9.2",
+  
+    
+  "util": "^0.12.4"
   
   },
   
