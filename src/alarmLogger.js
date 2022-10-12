@@ -2,7 +2,7 @@ const util = require('util');
 const timer = util.promisify(setTimeout);
 let fs = require('fs');
 
-let i = 0;
+//let i = 0;
 
 let alarmLogger = function (textAlarm , value, oid) {
     try {
@@ -17,6 +17,7 @@ let alarmLogger = function (textAlarm , value, oid) {
 
 
     if (value == 1 ){
+        //let startDate = new Date().getTime()
     /* do {
         i = i+1;
         await timer(1000);
