@@ -1,3 +1,5 @@
+const { printScreen } = require ('./src/puppeteer');
+
 const snmp = require('net-snmp');
 const { Telegraf } = require('telegraf')
 require('dotenv').config()
@@ -100,6 +102,12 @@ bot.command(['noshowtrap','NOSHOWTRAP'],  (ctx) =>{
     ctx.reply('Show Trap Recived: OFF')
 });
 
+
+bot.command(['help','HELP'],  (ctx) =>{
+
+    ctx.reply('Commands: \n /alarmas - Start listening traps \n /showhb - Show heartbeat \n /noshowhb - No show heartbeat \n /showtrap - Show trap recived \n /noshowtrap - No show trap recived \n /help - Show this help n /')
+    printScreen()
+});
  
 console.log('Snmp Telegram Bot: STARTED');
 bot.launch()
