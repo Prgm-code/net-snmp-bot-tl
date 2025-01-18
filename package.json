@@ -25,7 +25,7 @@
   "scripts": {
   
     
-  "start": "sudo node index.js"
+  "start": "node index.js"
   
   },
   

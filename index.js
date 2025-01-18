@@ -26,7 +26,7 @@ let sendMessage = async function(text,ctx) {
 
  function snmpTrap (ctx) {
     var options = {
-        port: 162,
+        port: 1161,
         disableAuthorization: true,
         includeAuthentication: false,
         accessControlModelType: snmp.AccessControlModelType.None,
