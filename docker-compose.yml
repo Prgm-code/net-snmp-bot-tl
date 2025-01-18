@@ -1,12 +1,11 @@
 version: '3.2'
 
 services:
-    snmp-sever:
-        image : snmp-server
+   snmp-server:
+        build:
+            context: .
+            dockerfile: Dockerfile  
         container_name: snmp-server
         ports:
             - "1161:1161/udp"
-        
         restart: unless-stopped
-
-        
